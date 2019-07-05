@@ -1,28 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<title>Loading</title>
-</head>
-<body>
-<p>Please wait...</p>
-</body>
-<script src="//cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$.ajax({
-		dataType: "jsonp",
-		url: "https://ldby.site/local.php",
-		jsonp: "callback",
-		timeout: 500,
-		success: function(data) {
-			window.location = "https://www.ldby.site";
-			//alert(data.result);
-		},
-		complete: function(r, status) {
-			if(status != 'success') {
-				//alert(status);
-				window.location = "https://www.ldby.site:8443";
-			}
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<title>Loading</title>
+		<style type="text/css">
+		.box {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 200px;
+			height: 250px;
+			margin-left:-100px;
+			margin-top:-125px;
+			text-align: center;
+			line-height: 24px;
 		}
-	});
-</script>
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<img src="loading.gif" height="200" width="auto" />
+			<br />
+			<span id="status" style="text-align: center">Hacking to the Gate</span>
+			<br />
+			<span style="text-align: center; font-size: 12px">From <span id="ip" style="color:blue">Mystery Zone</span></span>
+		</div>
+	</body>
+	<script src="//cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$.ajax({
+			dataType: "jsonp",
+			url: "https://ldby.site/local.php",
+			jsonp: "callback",
+			timeout: 750,
+			success: function(data) {
+				if(data.result) {
+					$("#status").html('<span style="color:green">Welcome! My MASTER</span>');
+					$("#ip").html(data.ip);
+					setTimeout(function() {
+						window.location = 'https://www.ldby.site';
+					}, 1000);
+				}
+				//window.location = "https://www.ldby.site";
+				//alert(data.result);
+			},
+			complete: function(r, status) {
+				if(status != 'success') {
+					$("#status").html('<span style="color:orange">Are you my MASTER?</span>');
+					setTimeout(function() {
+						window.location = 'https://www.ldby.site:8443';
+					}, 1000);
+				}
+			}
+		});
+	</script>
 </html>
